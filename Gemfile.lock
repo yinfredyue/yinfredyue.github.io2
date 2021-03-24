@@ -91,7 +91,6 @@ PLATFORMS
   x86_64-darwin-19
 
 DEPENDENCIES
-  jekyll-watch
   minimal-mistakes-jekyll
   webrick (~> 1.7)
 

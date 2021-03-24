@@ -1,1 +1,92 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-03-23T12:46:55+08:00</updated><id>/feed.xml</id><title type="html">Yue Yin’s website</title><subtitle>Stuffs about programming and learning</subtitle><author><name>Yue Yin</name></author></feed>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-03-24T13:17:22+08:00</updated><id>/feed.xml</id><title type="html">Yue Yin’s website</title><subtitle>Stuffs about programming and learning</subtitle><author><name>Yue Yin</name></author><entry><title type="html">How I Created This Site</title><link href="/tools/how-i-created-this-site/" rel="alternate" type="text/html" title="How I Created This Site" /><published>2021-03-24T00:00:00+08:00</published><updated>2021-03-24T00:00:00+08:00</updated><id>/tools/how-i-created-this-site</id><content type="html" xml:base="/tools/how-i-created-this-site/">&lt;p&gt;I created this page using GitHub page and &lt;a href=&quot;https://mmistakes.github.io/minimal-mistakes/docs/collections/&quot;&gt;Minimals Mistakes&lt;/a&gt;, a &lt;a href=&quot;https://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt; theme.&lt;/p&gt;
+
+&lt;p&gt;Here’re the steps.&lt;/p&gt;
+
+&lt;h2 id=&quot;basic-adoption&quot;&gt;Basic adoption&lt;/h2&gt;
+
+&lt;p&gt;Install all dependencies. Follow the &lt;a href=&quot;https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/&quot;&gt;quick-start guide&lt;/a&gt;. When this step is done, I have a good-looking homepage, but without navigation functionality.&lt;/p&gt;
+
+&lt;h2 id=&quot;navigation&quot;&gt;Navigation&lt;/h2&gt;
+
+&lt;h3 id=&quot;jekyll-documentation&quot;&gt;Jekyll documentation&lt;/h3&gt;
+
+&lt;p&gt;Read &lt;a href=&quot;https://jekyllrb.com/docs/&quot;&gt;this&lt;/a&gt; to have some basic knowledge of how Jekyll works. Here are some important ones:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://jekyllrb.com/docs/ruby-101/&quot;&gt;Gem&lt;/a&gt; and basic &lt;a href=&quot;https://jekyllrb.com/docs/step-by-step/01-setup/&quot;&gt;command line usages&lt;/a&gt;. Jekyll generates a static site, the output is in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_site&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/mmistakes/minimal-mistakes/discussions/1219#discussioncomment-172827&quot;&gt;How to customize the font?&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://jekyllrb.com/docs/step-by-step/02-liquid/&quot;&gt;Liquid&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://jekyllrb.com/docs/step-by-step/03-front-matter/&quot;&gt;Front matter&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jekyllrb.com/docs/step-by-step/04-layouts/&quot;&gt;Layouts&lt;/a&gt;.
+    &lt;ul&gt;
+      &lt;li&gt;Stored in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_layouts&lt;/code&gt; directory. To use layout, specify in the front matter of a html/markdown file.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://jekyllrb.com/docs/step-by-step/05-includes/&quot;&gt;Include&lt;/a&gt; allows you to include content from another file stored in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_includes&lt;/code&gt; folder. It’s usually used to avoid repeating code. For example, you can create &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_includes/navigation_bar.html&lt;/code&gt;, and add to each page using  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{% include navigation_bar.html  %}&lt;/code&gt; .&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jekyllrb.com/docs/step-by-step/06-data-files/&quot;&gt;Data files&lt;/a&gt; serves to separate data from view.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;minimal-mistakes-documentation&quot;&gt;Minimal Mistakes documentation&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://mmistakes.github.io/minimal-mistakes/docs/posts/&quot;&gt;Add a post&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://mmistakes.github.io/minimal-mistakes/docs/pages/&quot;&gt;Add a page&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;To create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Post&lt;/code&gt; session listing out all posts.
+    &lt;ul&gt;
+      &lt;li&gt;Create an item in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;navigation.yml&lt;/code&gt;. This creats a new item in the navigation bar. However, the page doesn’t exist yet.&lt;/li&gt;
+      &lt;li&gt;Create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;posts.md&lt;/code&gt; in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_pages&lt;/code&gt;. An empty page is created.&lt;/li&gt;
+      &lt;li&gt;Add the following to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;posts.md&lt;/code&gt;
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  ---
+  title: &quot;Posts (by year)&quot;
+  permalink: /posts/
+  layout: posts
+  author_profile: true
+  ---
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+        &lt;p&gt;this applies the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;posts&lt;/code&gt; layout &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_layouts/posts.html&lt;/code&gt; to the page. It’s looks good enough.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;To create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Categories&lt;/code&gt; session grouping posts by category.
+    &lt;ul&gt;
+      &lt;li&gt;Create an item in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;navigation.yml&lt;/code&gt;. This creats a new item in the navigation bar. However, the page doesn’t exist yet.&lt;/li&gt;
+      &lt;li&gt;Create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;categories.md&lt;/code&gt; in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_pages&lt;/code&gt;. An empty page is created.&lt;/li&gt;
+      &lt;li&gt;Add the following to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;categories.md&lt;/code&gt;
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  ---
+  title: &quot;Posts by category&quot;
+  permalink: /categories/
+  layout: categories
+  author_profile: true
+  ---
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+        &lt;p&gt;this applies the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;posts&lt;/code&gt; layout &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_layouts/categories.html&lt;/code&gt; to the page. It’s looks good enough.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;others&quot;&gt;Others&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;How to show  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{{&lt;/code&gt;  in Jekyll?  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{{&lt;/code&gt;  and  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;}}&lt;/code&gt;  is special syntax in Jekyll.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.tomordonez.com/curly-braces-markdown-jekyll/&quot;&gt;https://www.tomordonez.com/curly-braces-markdown-jekyll/&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://docs.j7k6.org/escape-double-curly-brackets-jekyll/&quot;&gt;https://docs.j7k6.org/escape-double-curly-brackets-jekyll/&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;You need different setups for building the site locally and GitHub page. See &lt;a href=&quot;https://yinfredyue.github.io/&quot;&gt;this&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Yue Yin</name></author><category term="Tools" /><summary type="html">I created this page using GitHub page and Minimals Mistakes, a Jekyll theme.</summary></entry></feed>
