@@ -10,7 +10,7 @@ toc_sticky: true
 
 ## TLDR
 
-This explains how a DBMS stores data on disk.
+This explains how a DBMS represents the database on disk.
 
 How to store a database: disk-oriented DBMS implements buffer pool manager and storage manager.
 
@@ -26,6 +26,21 @@ How to represent meda-data about the database: system catalog.
 
 How to choose storage models for different workloads?
 
+
+## Database Architecture
+```
++--------------------+
+| Query Planning     |
++--------------------+
+| Operator Execution |
++--------------------+
+|   Access Methods   |
++--------------------+
+|Buffer Pool Manager |
++--------------------+
+|   Disk Manager     | <- 
++--------------------+
+```
 
 ## Storage 
 
