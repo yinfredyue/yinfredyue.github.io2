@@ -11,6 +11,7 @@ layout: archive
   {% endif %}
 {% endfor %}
 
+<!-- Comment this out to see what it's for -->
 <ul class="taxonomy__index">
   {% for i in (1..categories_max) reversed %}
     {% for category in site.categories %}
@@ -30,9 +31,12 @@ layout: archive
   {% for category in site.categories %}
     {% if category[1].size == i %}
       <section id="{{ category[0] | slugify | downcase }}" class="taxonomy__section">
-        <h2 class="archive__subtitle">{{ category[0] }}</h2>
+        <!-- category title -->
+        <h2 class="archive__subtitle">{{ category[0] }}</h2> 
         <div class="entries-{{ entries_layout }}">
-          {% for post in category.last %}
+          <!-- `reversed` to get time ordering -->
+          {% for post in category.last reversed %}
+            <!-- post title -->
             {% include archive-single.html type=entries_layout %}
           {% endfor %}
         </div>
