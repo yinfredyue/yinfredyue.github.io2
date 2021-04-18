@@ -57,13 +57,13 @@ When Intel advanced from 8088 to 8086, the architecture is preserved for backwar
 
 ## BIOS ROM
 
-BIOS loads bootloader from disk into memory. If the disk is bootable, the first sector is called the boot sector. BIOS loads the boot sector into memory at physical address 0x7c00 through 0x7dff, and uses `jmp` instruction to set the `CS:IP` to `0000:7c00`, passing control to the boot loader. Theses addresses are designed arbitrarily by Intel.
+BIOS loads bootloader from disk into memory. If the disk is bootable, the first sector is called the *boot sector*. BIOS loads the boot sector into memory at physical address 0x7c00 through 0x7dff, and uses `jmp` instruction to set the `CS:IP` to `0000:7c00`, passing control to the boot loader. Theses addresses are designed arbitrarily by Intel.
 
 
 
 ## Bootloader
 
-The bootloader loads the kernel from disk into memory. The kernel is in ELF format.
+The bootloader loads the kernel from disk. The kernel is stored starting from the 2nd disk sector, in ELF format.
 
 When compiling and linking a C program, the compiler transforms source file `.c` into *object file* `.o`. The object file contains assembly instructions in binary format (0's and 1's). The linker combines all object files into a single *binary image* like `obj/kern/kernel` in the ELF format. ELF: Executable and Linkable Format.
 
