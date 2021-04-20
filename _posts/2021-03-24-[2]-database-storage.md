@@ -79,7 +79,7 @@ A *heap file*  (the "heap" here has nothing to do with the one in "heap & stack"
 
 - **Linked list**: header page stores a pointer to a list of free pages, and a pointer to data pages. A sequential scan is needed to find a specific page.
 
-- **Page directory**: the DBMS maintains special pages that track locations of data pages and fre pages. 
+- **Page directory**: the DBMS maintains special pages that track locations of data pages and free pages. 
 
 ## Page Layout
 

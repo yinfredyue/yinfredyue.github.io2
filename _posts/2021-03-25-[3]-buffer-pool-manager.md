@@ -44,7 +44,7 @@ Optimizations:
 
 Common:
 - LRU
-- CLOCK: an approximation of LRU without needing a timestamp for each page
+- CLOCK: an approximation of LRU without needing a timestamp for each page. The slides say that it's an approximation of LRU without needing a separate timestamp per page. However, LRU is implemented with a `std::list` and a `std::unordered_map`, and no timestamp is stored. I don't really understand.
 
 ## Implementation
 
@@ -102,7 +102,7 @@ class BufferPoolManager {
     // 1.2  Otherwise, find a replacement page R from the free list or the replacer;
     // 2.   If R is dirty, flush it to disk;
     // 3.   Delete R from the page table and insert P;
-    // 4.   Read P from the disk into the buffer pool, and return pointer to P.
+    // 4.   Read P from the disk into the buffer pool, pin the page, and return pointer to P.
   }
     
   /* Unpin the page from the buffer pool. */
@@ -123,7 +123,7 @@ class BufferPoolManager {
     // 1.  Ask disk manager to allocate a new page P;
     // 2.  If all pages in the buffer pool is pinned, return nullptr;
     // 3.  Pick a victim page V from the free list or the replacer. Evict V;
-    // 4.  Zero out V's correspoinding frame in memory, and add P to page table.
+    // 4.  Zero out V's correspoinding frame in memory, pin the page, and add P to page table.
   }
     
   /* Deletes a page from the buffer pool. */
