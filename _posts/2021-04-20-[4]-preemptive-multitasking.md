@@ -1,4 +1,12 @@
+---
+layout: single
+categories: 
+    - OS
+author: Yue Yin
 
+toc: true
+toc_sticky: true
+---
 
 ## Multiprocessor support
 
