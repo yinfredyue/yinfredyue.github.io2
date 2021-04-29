@@ -91,3 +91,192 @@ When an environment calls `sys_ipc_recv` with a valid `dstva` parameter (below U
 When an environment calls `sys_ipc_try_send` with a valid `srcva` (below UTOP), it means the sender wants to send the page currently mapped at `srcva` to the receiver, with permissions `perm`. After a successful IPC, the sender keeps its original mapping for the page at `srcva` in its address space, but the receiver also obtains a **mapping** for this same physical page at the `dstva` originally specified by the receiver, in the receiver's address space. As a result this page becomes **shared** between the sender and receiver.
 
 If either the sender or the receiver does not indicate that a page should be transferred, then no page is transferred. After any IPC the kernel sets the new field `env_ipc_perm` in the receiver's Env structure to the permissions of the page received, or zero if no page was received.
+
+
+
+## Q & A
+
+- What are the ways that processes can communicate with each other?
+
+    - Pipe. See `MIT6.828/homework/hw2/sh.c` to see how the shell executes a shell command. Main logic:
+
+        ```c
+        void runcmd(struct cmd *cmd) {
+            switch (cmd->type) {
+                // ...
+                case '|':
+                    /* Two forks */
+                    // Implementation for pipe is explained in the xv6 book Chapter 0.
+                    pcmd = (struct pipecmd *)cmd;
+        
+                    int pipefd[2];
+                    pipe(pipefd);
+        
+                    pid_t lid, rid;
+        
+                    // left
+                    if ((lid = fork1()) == 0) {
+                        close(1);
+                        dup(pipefd[1]); // 1 -> pipefd[1] now
+        
+                        close(pipefd[0]);
+                        close(pipefd[1]);
+        
+                        runcmd(pcmd->left);
+                        break;
+                    }
+        
+                    // right
+                    if ((rid = fork1()) == 0) {
+                        close(0);
+                        dup(pipefd[0]); // 0 -> pipefd[0] now
+        
+                        close(pipefd[0]);
+                        close(pipefd[1]);
+        
+                        runcmd(pcmd->right);
+                        break;
+                    }
+        
+                    // Important!
+                    // Without closing in the parent process, read() in the 
+                    // right child would never see the end of the file, and
+                    // keeps blocking.
+                    close(pipefd[0]);
+                    close(pipefd[1]);
+        
+                    waitpid(lid, NULL, 0);
+                    waitpid(rid, NULL, 0);
+                    break;
+            }
+            _exit(0);
+        }
+        ```
+
+        With `close` and `dup`, shell replaces file decriptor 1 in the left command with `pipefd[0]` (write end), and replaces file descriptor 0 in the right command with `pipefd[1]` (end). 
+
+        How is pipe implemented? See `xv6-public/pipe.c`, it's essentially a memory buffer. Functions `pipealloc`, `pipeclose`, `pipewrite`, `piperead` are defined.
+
+        ```c
+        #define PIPESIZE 512
+        struct pipe {
+          struct spinlock lock;
+          char data[PIPESIZE];
+          uint nread;     // number of bytes read
+          uint nwrite;    // number of bytes written
+          int readopen;   // read fd is still open
+          int writeopen;  // write fd is still open
+        };
+        ```
+
+    - Shared memory: create a memory region accessible by multiple processes. Just like implemented in JOS.
+
+    - Message Queue: A linked list of messages maintained by the kernel. TODO: Read [this](https://www.geeksforgeeks.org/ipc-using-message-queues/). Should be similar to IPC above.
+
+    - Semaphore: in CSAPP, semaphore are only used for thread coordination, as all threads of the same process share the same address. However, it can be used for process coordination. It's essentially by sharing memory: https://stackoverflow.com/questions/13145885/name-and-unnamed-semaphore.
+
+    - Socket: network.
+
+    - Signal: "software interrupt", implemented similar to interrupt/exception. A process can choose how to handle a signal: default handling, custom handling, ignoring.
+
+    In my understanding, all inter-process communication requires sharing memory, either directly or indirectly. 
+
+- When `fork`ing a child, the open file table is copied. Why file offset is shared between child and parent?
+
+    Short answer: Copying the file descriptor just increments the reference count. Offset is associated with the file descriptor. 
+
+    Long answer: See definitions in xv6.
+
+    ```c
+    struct file {
+      enum { FD_NONE, FD_PIPE, FD_INODE } type;
+      int ref; // reference count
+      char readable;
+      char writable;
+      struct pipe *pipe;
+      struct inode *ip;
+      uint off;
+    };
+    
+    // per-process state
+    struct proc {
+      uint sz;                     // Size of process memory (bytes)
+      pde_t* pgdir;                // Page table
+      char *kstack;                // Bottom of kernel stack for this process
+      enum procstate state;        // Process state
+      int pid;                     // Process ID
+      struct proc *parent;         // Parent process
+      struct trapframe *tf;        // Trap frame for current syscall
+      struct context *context;     // swtch() here to run process
+      void *chan;                  // If non-zero, sleeping on chan
+      int killed;                  // If non-zero, have been killed
+      struct file *ofile[NOFILE];  // Open files
+      struct inode *cwd;           // Current directory
+      char name[16];               // Process name (debugging)
+    
+      int alarmticks;              // interval between two calls to handler
+      void (*alarmhandler)();      // alarm handler. If NULL, not set up for alarm().
+      uint prevalarmtick;          // system tick when prev handler is invoked
+    };
+    
+    // Create a new process copying p as the parent.
+    // Sets up stack to return as if from system call.
+    // Caller must set state of returned proc to RUNNABLE.
+    int
+    fork(void) {
+      int i, pid;
+      struct proc *np;
+      struct proc *curproc = myproc();
+    
+      // Allocate process.
+      if((np = allocproc()) == 0){
+        return -1;
+      }
+    
+      // Copy process state from proc.
+      if((np->pgdir = copyuvm(curproc->pgdir, curproc->sz)) == 0){
+        kfree(np->kstack);
+        np->kstack = 0;
+        np->state = UNUSED;
+        return -1;
+      }
+      np->sz = curproc->sz;
+      np->parent = curproc;
+      *np->tf = *curproc->tf;
+    
+      // Clear %eax so that fork returns 0 in the child.
+      np->tf->eax = 0;
+    
+      // Copy file descriptors
+      for(i = 0; i < NOFILE; i++)
+        if(curproc->ofile[i])
+          np->ofile[i] = filedup(curproc->ofile[i]); // increments ref count
+      np->cwd = idup(curproc->cwd);
+    
+      safestrcpy(np->name, curproc->name, sizeof(curproc->name));
+    
+      pid = np->pid;
+    
+      acquire(&ptable.lock);
+    
+      np->state = RUNNABLE;
+    
+      release(&ptable.lock);
+    
+      return pid;
+    }
+    
+    // Increment ref count for file f.
+    struct file*
+    filedup(struct file *f) {
+      acquire(&ftable.lock);
+      if(f->ref < 1)
+        panic("filedup");
+      f->ref++;
+      release(&ftable.lock);
+      return f;
+    }
+    ```
+
+    
+
