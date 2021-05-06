@@ -19,16 +19,16 @@ The kernel keeps track of user environments with three data structures: `struct 
 
 ```c
 struct Env {
-	struct Trapframe env_tf;	// Saved registers when being descheduled
-	struct Env *env_link;		// Next free Env
-	envid_t env_id;			    // Unique environment identifier of the env using this `struct Env`
-	envid_t env_parent_id;		// env_id of this env's parent
-	enum EnvType env_type;		// Indicates special system environments
-	unsigned env_status;		// Status of the environment
-	uint32_t env_runs;			// Number of times environment has run
+	struct Trapframe env_tf;    // Saved registers when being descheduled
+	struct Env *env_link;       // Next free Env
+	envid_t env_id;             // Unique environment identifier of the env using this `struct Env`
+	envid_t env_parent_id;      // env_id of this env's parent
+	enum EnvType env_type;      // Indicates special system environments
+	unsigned env_status;        // Status of the environment
+	uint32_t env_runs;          // Number of times environment has run
 
 	// Address space
-	pde_t *env_pgdir;			// Kernel virtual address of page dir
+	pde_t *env_pgdir;           // Kernel virtual address of page dir
 };
 ```
 
@@ -44,7 +44,7 @@ env_alloc() {
 
 env_setup_vm(e) {
     e->env_pgdir = page_alloc(); // allocate page directory
-	e->env_pgdir = memcpy(kern_pgdir); // copy from kernel's page directory
+    e->env_pgdir = memcpy(kern_pgdir); // copy from kernel's page directory
 }
 
 load_icode(e) {
@@ -75,7 +75,7 @@ env_run(e) {
 
 ## Protected Control Transfer
 
-Exceptions and interrupts are both *protected control transfers*, casuing CPU to switch from user mode (CPL=3) to kernel mode (CPL=0), without giving the user-mode code any opportunity to interfere the kernel or other environments. 
+Exceptions and interrupts are both *protected control transfers*, causing CPU to switch from user mode (CPL=3) to kernel mode (CPL=0), without giving the user-mode code any opportunity to interfere the kernel or other environments. 
 
 An *interrupt* is caused by asynchronous event, like I/O activities. An *exception* is caused synchronously by currently running code, like division by zero and invalid memory access. Each interrupt/exception is identified by a number in 0-255 (called *vector*).
 
