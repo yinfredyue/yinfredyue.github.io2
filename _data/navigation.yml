@@ -4,3 +4,7 @@ main:
     url: /posts/
   - title: "Categories"
     url: /categories/
+  - title: "About"
+    url: /about/
+  - title: "Resume"
+    url: ../assets/resume.pdf
