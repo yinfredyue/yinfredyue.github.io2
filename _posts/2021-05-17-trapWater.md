@@ -131,12 +131,12 @@ Proof by induction (This proof is inspired by [this](https://leetcode-cn.com/pro
 
 - H[left] < H[right], and H[left+1] < H[right]
 - H[left] < H[right], and H[left+1] > H[right]
-- H[left] > H[right], and H[left+1] < H[right]
-- H[left] > H[right], and H[left+1] < H[right]
+- H[left] > H[right], and H[left] < H[right-1]
+- H[left] > H[right], and H[left] < H[right-1]
 
 The remaining idea is similar to variant1. 
 
-In summary, the idea is that the amount of water trapped is determined by the *lowest* of all boundaries, i.e., when we know the lowest (not all) boundary, we can calculate the water. In 2D, there are only two boundaries (left and right).
+In summary, the idea is that the amount of water trapped is determined by the *lowest* of all boundaries, i.e., when we to calculate the water, we only need to know lowest (not necessarily all). In 2D, there are only two boundaries (left, right).
 
 From the perspective of `H[left]` and `H[right]`:  `leftMax` represents accurate left boundary for `H[left]`, inaccurate left boundary for `H[right]`; `rightMax` represents inaccurate rigth boundary for `H[left]`, and accurate right boundary for `H[right]`. When `leftMax < rightMax`, we are sure that left boundary is the lowest boundary for `H[left]`, when `leftMax > rightMax`, we are sure that the right boundary is the lowest boundary for `H[right]`. 
 
@@ -144,5 +144,5 @@ From the perspective of `H[left]` and `H[right]`:  `leftMax` represents accurate
 
 Problem: [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water-ii/).
 
-Follow the same idea as above: https://leetcode.com/problems/trapping-rain-water-ii/discuss/89495/How-to-get-the-solution-to-2-D-%22Trapping-Rain-Water%22-problem-from-1-D-case. Initially we pushed all boundaries to the priority queue, and popping from the lowest boundary. Thus, when a slot is popped from the priority_queue, it knows that *the lowest of its boundaries* is determined, with the value of `currMax`. So, the water at this slot can be calculated. Visualization: https://leetcode.com/problems/trapping-rain-water-ii/discuss/89472/Visualization-No-Code
+This is the 2D variant of the previous problem. Follow the same idea as in 1D: https://leetcode.com/problems/trapping-rain-water-ii/discuss/89495/How-to-get-the-solution-to-2-D-%22Trapping-Rain-Water%22-problem-from-1-D-case. Initially we push all boundaries to the priority queue, and popping from the lowest boundary. Thus, when a slot is popped from the priority_queue, it knows that *the lowest of its boundaries* is determined, with the value of `currMax`. So, the water at this slot can be calculated. Visualization: https://leetcode.com/problems/trapping-rain-water-ii/discuss/89472/Visualization-No-Code
 
