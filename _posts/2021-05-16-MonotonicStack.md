@@ -78,5 +78,5 @@ The properties above help you to several categories of algorithm problems:
 
 "Next greater element": find the closet elment that's greater than the current element. In [Leetcode 496](https://leetcode.com/problems/next-greater-element-i/) and [Leetcode 739. Daily Temperatures](https://leetcode.com/problems/daily-temperatures/), it's the same as finding the leftmost element that's greater than current element ([reference](https://github.com/labuladong/fucking-algorithm/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%B3%BB%E5%88%97/%E5%8D%95%E8%B0%83%E6%A0%88.md)). So we use a descending stack. 
 
-"Closest greater/smaller element": a generalized case of the "next greater element" problem. In [Leetcode 42](https://leetcode.com/problems/trapping-rain-water/), for each water level, find the closest higher water level on both sides; this allows you to calculate water horizontally ([reference](https://leetcode-cn.com/problems/largest-rectangle-in-histogram/solution/84-by-ikaruga/)). 
+"Closest greater/smaller element": a generalized case of the "next greater element" problem. In [Leetcode 42](https://leetcode.com/problems/trapping-rain-water/), for each height, find the closest higher heights on both sides; this allows you to calculate water horizontally ([reference](https://leetcode-cn.com/problems/largest-rectangle-in-histogram/solution/84-by-ikaruga/)). 
 
