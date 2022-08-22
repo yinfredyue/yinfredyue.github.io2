@@ -2,5 +2,7 @@ _drafts/
 _site/
 .sass-cache/
 .jekyll-cache/
+vendor/
+.bundle/
 
 .DS_Store

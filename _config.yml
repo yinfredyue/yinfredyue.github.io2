@@ -12,10 +12,10 @@
 
 
 # When testing locally, use `theme`
-# theme                    : "minimal-mistakes-jekyll"
+theme                    : "minimal-mistakes-jekyll"
 
 # When using GitHub page, use `remote_theme`
-remote_theme             : "mmistakes/minimal-mistakes@4.22.0"
+# remote_theme             : "mmistakes/minimal-mistakes@4.22.0"
 
 minimal_mistakes_skin    : "dirt" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise", "default"
 
@@ -101,13 +101,13 @@ analytics:
 author:
   name             : "Yue Yin"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I want to build large, fast, reliable systems."
-  location         : "Software Engineer@ByteDance"
+  bio              : "I love large, fast, reliable systems."
+  location         : "Pittsburgh, PA"
   email            :
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      url: "yy0125@connect.hku.hk"
+      url: "yyin5@andrew.cmu.edu"
     - label: "Website"
       icon: "fas fa-fw fa-link"
       url: "https://yinfredyue.github.io"
