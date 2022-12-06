@@ -12,10 +12,10 @@
 
 
 # When testing locally, use `theme`
-theme                    : "minimal-mistakes-jekyll"
+# theme                    : "minimal-mistakes-jekyll"
 
 # When using GitHub page, use `remote_theme`
-# remote_theme             : "mmistakes/minimal-mistakes@4.22.0"
+remote_theme             : "mmistakes/minimal-mistakes@4.22.0"
 
 minimal_mistakes_skin    : "dirt" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise", "default"
 
