@@ -15,7 +15,7 @@
 # theme                    : "minimal-mistakes-jekyll"
 
 # When using GitHub page, use `remote_theme`
-remote_theme             : "mmistakes/minimal-mistakes@4.22.0"
+remote_theme             : "mmistakes/minimal-mistakes@4.26.2"
 
 minimal_mistakes_skin    : "dirt" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise", "default"
 
@@ -26,12 +26,13 @@ title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Yue Yin"
 description              : "Stuffs about programming and learning"
-url                      : "https://yyin-dev.github.io/" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
-baseurl                  : "/posts" # the subpath of your site, e.g. "/blog"
+url                      : "https://yyin-dev.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "yyin-dev/yyin-dev.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
+github                   : [metadata] # https://github.com/github/pages-gem/issues/399#issuecomment-301827749
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 200
 comments:

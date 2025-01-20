@@ -76,6 +76,11 @@ Read [this](https://jekyllrb.com/docs/) to have some basic knowledge of how Jeky
 
 - You need different setups for building the site locally and GitHub page. See [this](https://yyin-dev.github.io/).
 
+    - In `_config.yml`, 
+
+        - Locally, set `theme: "minimal-mistakes-jekyll"`
+        - Remotely, set `remote_theme: "mmistakes/minimal-mistakes@4.26.2"`
+
     - To run locally, run `bundle exec jekyll serve`. Note that this replaces the urls in `index.html` with your localhost `http://localhost:4000` which won't work when you push to GitHub. There are two workarounds ([reference](https://github.com/jekyll/jekyll-seo-tag/issues/406)):
 
         - Before pushing, run `bundle exec jekyll build` to build the production artifact.
