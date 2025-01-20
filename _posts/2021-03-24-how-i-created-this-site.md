@@ -74,4 +74,10 @@ Read [this](https://jekyllrb.com/docs/) to have some basic knowledge of how Jeky
     - [https://www.tomordonez.com/curly-braces-markdown-jekyll/](https://www.tomordonez.com/curly-braces-markdown-jekyll/)
     - [https://docs.j7k6.org/escape-double-curly-brackets-jekyll/](https://docs.j7k6.org/escape-double-curly-brackets-jekyll/)
 
-- You need different setups for building the site locally and GitHub page. See [this](https://yinfredyue.github.io/).
+- You need different setups for building the site locally and GitHub page. See [this](https://yyin-dev.github.io/).
+
+    - To run locally, run `bundle exec jekyll serve`. Note that this replaces the urls in `index.html` with your localhost `http://localhost:4000` which won't work when you push to GitHub. There are two workarounds ([reference](https://github.com/jekyll/jekyll-seo-tag/issues/406)):
+
+        - Before pushing, run `bundle exec jekyll build` to build the production artifact.
+
+        - When building locally, use `JEKYLL_ENV=production bundle exec jekyll serve`.
