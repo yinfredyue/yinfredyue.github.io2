@@ -48,7 +48,7 @@ X X X a X X X
 X X X X X X X
 ```
 
-We can use a monotonic stack for this purpose: for each height, find the closest higher heights to the left and right. See detailed explanation [here](https://yinfredyue.github.io/leetcode/MonotonicStack/).
+We can use a monotonic stack for this purpose: for each height, find the closest higher heights to the left and right. See detailed explanation [here](https://yyin-dev.github.io/leetcode/MonotonicStack/).
 
 
 

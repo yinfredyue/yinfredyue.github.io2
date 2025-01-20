@@ -111,6 +111,6 @@ bootstacktop:
 
 ## Reference
 
-https://github.com/yinfredyue/MIT6.828/blob/master/labNotes/lab1/lab1.md
+https://github.com/yyin-dev/MIT6.828/blob/master/labNotes/lab1/lab1.md
 
 https://pdos.csail.mit.edu/6.828/2018/labs/lab1/

@@ -32,7 +32,7 @@ A physical page allocator is needed before implementing the rest of virtual memo
 
 ## Part2: Virtual Memory
 
-[Segmentation and paging mechanism](https://github.com/yinfredyue/MIT6.828/blob/master/labNotes/lab2/IntelManualReading%20-%20Chapter%205.md). In `boot/boot.S`, segmentation is effectively disabled by setting all segment base addresses to 0 and limits to 0xFFFFFFFF. JOS uses two-level page table. 
+[Segmentation and paging mechanism](https://github.com/yyin-dev/MIT6.828/blob/master/labNotes/lab2/IntelManualReading%20-%20Chapter%205.md). In `boot/boot.S`, segmentation is effectively disabled by setting all segment base addresses to 0 and limits to 0xFFFFFFFF. JOS uses two-level page table. 
 
 Before entering kernel (Lab1), a simple page table maps both virtual address `[0x00000000, 0x00400000]` and virtual address `[0xf0000000, 0xf0400000]` to physical address `[0x00000000, 0x00400000]`. In Lab2, JOS maps the first 256MB of physical memory (this is all physical memory that JOS will use) starting at address 0xF00000000 (this contains the 4MB simple mapping in Lab1) and some other regions. 
 
@@ -82,6 +82,6 @@ Part 3 creates several mappings above `UTOP` in `kern_pgdir`: maps `pages` into 
 
 ## Reference
 
-https://github.com/yinfredyue/MIT6.828/blob/master/labNotes/lab2/lab2.md
+https://github.com/yyin-dev/MIT6.828/blob/master/labNotes/lab2/lab2.md
 
 https://pdos.csail.mit.edu/6.828/2018/labs/lab2/

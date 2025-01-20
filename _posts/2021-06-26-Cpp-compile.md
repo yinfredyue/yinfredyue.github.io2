@@ -13,7 +13,7 @@ totally forgot how to compile C++ code. This is to refresh my memory.
 
 ## How C++ compilation works
 
-See detailed description here: https://github.com/yinfredyue/cpp_primer_solution#c-program-building-process.
+See detailed description here: https://github.com/yyin-dev/cpp_primer_solution#c-program-building-process.
 
 ```
 Source C++ ---> Expanded C++ ---> Assembly code (.s) ----> Binary (.o) ---> Executable

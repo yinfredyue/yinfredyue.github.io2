@@ -103,15 +103,15 @@ author:
   name             : "Yue Yin"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "I love large, fast, reliable systems."
-  location         : "Pittsburgh, PA"
+  location         : "NYC"
   email            :
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      url: "yyin5@andrew.cmu.edu"
+      url: "yueyin.dev@gmail.com"
     - label: "Website"
       icon: "fas fa-fw fa-link"
-      url: "https://yinfredyue.github.io"
+      url: "https://yyin-dev.github.io"
     # - label: "Twitter"
     #   icon: "fab fa-fw fa-twitter-square"
     #   url: "https://twitter.com/"
@@ -120,7 +120,7 @@ author:
     #   url: "https://facebook.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/yinfredyue"
+      url: "https://github.com/yyin-dev"
     # - label: "Instagram"
     #   icon: "fab fa-fw fa-instagram"
     #   url: "https://instagram.com/"
@@ -136,7 +136,7 @@ footer:
     #   url:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url:  "https://github.com/yinfredyue"
+      url:  "https://github.com/yyin-dev"
     # - label: "GitLab"
     #   icon: "fab fa-fw fa-gitlab"
     #   url: 
