@@ -1,6 +1,7 @@
 ---
 layout: single
 toc: true
+toc_sticky: true
 ---
 
 The following are notes while reading papers in the [2025 AI Engineer Reading List](https://www.latent.space/p/2025-papers) They are personal notes and are not refined for an external audience really. Just in case it's helpful for someone else. 

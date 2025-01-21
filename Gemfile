@@ -1,7 +1,5 @@
 source "https://rubygems.org"
 
-gem 'jekyll-toc'
-
 # Gemfile for local testing
 gem "webrick", "~> 1.7"
 gem "minimal-mistakes-jekyll"
