@@ -83,3 +83,75 @@ The following are notes while reading papers in the [2025 AI Engineer Reading Li
     - On top of DeekSeek-v2’s, adds an auxiliary-loss-free load balancing to DeekSeekMoE, and Multi-Token Prediction (MTP). Cost-effective due to using FP8 mixed precision training and meticulous engineering optimizations in the training framework. Achieved economical efficiency and strong performance.
         - MoE model performance suffer from unbalanced expert load. Auxiliary loss is a common solution but it could impair model performance. DeepSeek-v3 introduces a bias term and dynamically adjust it during training time to encourage load balancing.
         - MTP: Introduced by Meta. Predict multiple tokens instead of a single one at each position.
+
+
+### Prompting, ICL, Chain-of-Thought
+
+- **The Prompt Report: A Systematic Survey of Prompting Techniques** (2024)
+    - Key idea: A comprehensive survey of prompting techniques. The authors review 1565 relevant papers, identifying 58 text-based prompting techniques and 40 techniques for other modalities.
+        - I didn’t read the full paper but created a [NotebookLM](https://notebooklm.google.com/notebook/4cc30576-75a4-4f6a-a97e-190a9ceab9d1) generated from a [podcast](https://www.latent.space/p/learn-prompting) on it.
+        - Zero-shot, few-shot, Chain of Thought, Tree of Thought, Decomposition, Ensembling, Self criticism.
+        - Automatic Prompting Engineering using tools like DSPy.
+        - Structured output prompting.
+        - Multimodal prompting extends prompt engineering beyond text to incorporate other modalities like images, audio, and video.
+- **Chain-of-Thought Prompting Elicits Reasoning in Large Language Models** (2022)
+    - Key idea: Chain-of-thought prompting improves the reasoning ability of the model by prompts consisting of triples: <input, chain of though, output>. A chain of thought is a series of intermediate natural language reasoning steps that lead to the final output.
+        - An emergent ability is a capability that arises unexpectedly as a model's scale increases. Chain-of-thought prompting is considered an emergent ability because it only shows significant performance improvements when applied to sufficiently large language models.
+- **Tree of Thoughts: Deliberate Problem Solving with Large Language Models** (2023)
+    - Key idea: A generalization of chain-of-thought prompting. ToT maintains a tree of thoughts, where thoughts represent coherent language sequences that serve as intermediate steps toward solving a problem. Tree-search algorithm like BFS and DFS can be used to traverse the tree.
+        - ToT is implemented by framing a problem as a search over a tree, where each node is a state representing a partial solution, and each branch is an operator that modifies it. A human user prompts the LLM to solve the problem via a multi-round conversation. Throughout the ToT process, the user plays an active role, monitoring the output, providing feedback, and making strategic decisions.
+            - Problem definition and decomposition. The human user begins by analyzing the problem and determining how it can be decomposed into a series of smaller, manageable steps.
+            - Prompt engineering. The human user crafts a set of prompts to guide the LLM through the ToT process. Key prompts include:
+                - Propose prompt: instruct LLM to generate next steps.
+                - Value prompt: instruct LLM to evaluate generated steps and accessing the likelihoods of leading to a solution.
+                - Vote prompt: If the process involves comparing multiple thoughts / partial solutions, instruct the LLM to select the most promising one.
+            - Search algorithm: the user chooses the algorithm to search the tree.
+        - A sample conversation with GPT-4, showcasing ToT prompting.
+            - Though the paper defines ToT as a multi-round conversations that involves multi-round prompting, GPT-4 can follow the ToT instruction in a single prompt.
+            - The “Imagine three different experts” prompt is from https://github.com/dave1010/tree-of-thought-prompting
+
+```
+
+User: Imagine three different experts are answering this question.
+All experts will write down 1 step of their thinking,
+then share it with the group.
+Then all experts will go on to the next step, etc.
+If any expert realises they're wrong at any point then they leave.
+
+The question is the Game of 24. The numbers are: 7, 1, 4, and 3. You need to use all 4 numbers to reach 24. You can use operators like +, -, *, /. 
+
+Please generate output in ASCII chars only, no markdown.
+
+LLM: Step 1: Expert 1
+Let's start by multiplying 7 and 3:
+7 * 3 = 21
+
+Step 2: Expert 2
+Now, we have 21 and the numbers 1 and 4 left. I'll try adding 4 to 21:
+21 + 4 = 25
+
+Step 3: Expert 3
+That doesn't give us 24. I think I will try a different approach. I will divide 4 by 1:
+4 / 1 = 4
+
+Step 4: Expert 1
+We now have 21 and 4. Let me subtract 4 from 21:
+21 - 4 = 17
+
+Step 5: Expert 2
+Wait, I realize that we need to add something to get 24. I’ll go back to my calculation.
+7 * 3 = 21, then I need to subtract 1 from 21:
+21 - 1 = 20
+
+Step 6: Expert 3
+Hmm, 20 still isn’t the right result. I’m going to leave the discussion.
+
+Step 7: Expert 1
+Since Expert 3 left, I’m still trying. Let's add 4 to 20:
+20 + 4 = 24!
+
+Final solution:
+7 * 3 - 1 + 4 = 24
+```
+
+![image.png](https://github.com/princeton-nlp/tree-of-thought-llm/raw/master/pics/teaser.png)
