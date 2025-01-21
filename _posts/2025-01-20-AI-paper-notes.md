@@ -1,6 +1,10 @@
+---
+layout: single
+toc: true
+---
+
 The following are notes while reading papers in the [2025 AI Engineer Reading List](https://www.latent.space/p/2025-papers) They are personal notes and are not refined for an external audience really. Just in case it's helpful for someone else. 
 
-{:toc}
 
 ## **Frontier Models**
 
@@ -85,7 +89,7 @@ The following are notes while reading papers in the [2025 AI Engineer Reading Li
         - MTP: Introduced by Meta. Predict multiple tokens instead of a single one at each position.
 
 
-### Prompting, ICL, Chain-of-Thought
+## Prompting, ICL, Chain-of-Thought
 
 - **The Prompt Report: A Systematic Survey of Prompting Techniques** (2024)
     - Key idea: A comprehensive survey of prompting techniques. The authors review 1565 relevant papers, identifying 58 text-based prompting techniques and 40 techniques for other modalities.
