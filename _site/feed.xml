@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://yyin-dev.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://yyin-dev.github.io/" rel="alternate" type="text/html" /><updated>2025-01-20T23:02:29-05:00</updated><id>https://yyin-dev.github.io/feed.xml</id><title type="html">Yue Yin’s website</title><subtitle>Stuffs about programming and learning</subtitle><author><name>Yue Yin</name></author><entry><title type="html">Ai Paper Notes</title><link href="https://yyin-dev.github.io/AI-paper-notes/" rel="alternate" type="text/html" title="Ai Paper Notes" /><published>2025-01-20T00:00:00-05:00</published><updated>2025-01-20T00:00:00-05:00</updated><id>https://yyin-dev.github.io/AI-paper-notes</id><content type="html" xml:base="https://yyin-dev.github.io/AI-paper-notes/"><![CDATA[<p>The following are notes while reading papers in the <a href="https://www.latent.space/p/2025-papers">2025 AI Engineer Reading List</a> They are personal notes and are not refined for an external audience really. Just in case it’s helpful for someone else.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://yyin-dev.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://yyin-dev.github.io/" rel="alternate" type="text/html" /><updated>2025-01-22T22:37:33-05:00</updated><id>https://yyin-dev.github.io/feed.xml</id><title type="html">Yue Yin’s website</title><subtitle>Stuffs about programming and learning</subtitle><author><name>Yue Yin</name></author><entry><title type="html">Ai Paper Notes</title><link href="https://yyin-dev.github.io/AI-paper-notes/" rel="alternate" type="text/html" title="Ai Paper Notes" /><published>2025-01-20T00:00:00-05:00</published><updated>2025-01-20T00:00:00-05:00</updated><id>https://yyin-dev.github.io/AI-paper-notes</id><content type="html" xml:base="https://yyin-dev.github.io/AI-paper-notes/"><![CDATA[<p>The following are notes while reading papers in the <a href="https://www.latent.space/p/2025-papers">2025 AI Engineer Reading List</a> They are personal notes and are not refined for an external audience really. Just in case it’s helpful for someone else.</p>
 
 <h2 id="frontier-models"><strong>Frontier Models</strong></h2>
 
@@ -264,7 +264,54 @@ Final solution:
 7 * 3 - 1 + 4 = 24
 </code></pre></div></div>
 
-<p><img src="https://github.com/princeton-nlp/tree-of-thought-llm/raw/master/pics/teaser.png" alt="image.png" /></p>]]></content><author><name>Yue Yin</name></author><summary type="html"><![CDATA[The following are notes while reading papers in the 2025 AI Engineer Reading List They are personal notes and are not refined for an external audience really. Just in case it’s helpful for someone else.]]></summary></entry><entry><title type="html">Rust Analyser False Positive</title><link href="https://yyin-dev.github.io/rust/rust-analyser-false-positive/" rel="alternate" type="text/html" title="Rust Analyser False Positive" /><published>2022-12-07T00:00:00-05:00</published><updated>2022-12-07T00:00:00-05:00</updated><id>https://yyin-dev.github.io/rust/rust-analyser-false-positive</id><content type="html" xml:base="https://yyin-dev.github.io/rust/rust-analyser-false-positive/"><![CDATA[<p>When reading TiKV code in VS Code, <code class="language-plaintext highlighter-rouge">cargo build</code> works but rust-analyzer generates false positive error. Error output:</p>
+<p><img src="https://github.com/princeton-nlp/tree-of-thought-llm/raw/master/pics/teaser.png" alt="image.png" /></p>
+
+<h2 id="retrieval-augmented-generation">Retrieval Augmented Generation</h2>
+
+<ul>
+  <li><strong>Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</strong> (RAG) (2020) by Meta
+    <ul>
+      <li>RAG consists of a pre-trained retriever and a pre-trained seq2seq generator. To answer a query, the retriever retrieves top-k most relevant documents from the document index, and pass both the query and retrieved documents to the generator to generate a response.</li>
+      <li>The retriever follows a bi-encoder architecture: a BERT <em>document encoder</em> builds a document index and a BERT <em>query encoder</em> produces a query representation. Top-k documents are retrieved by MIPS (Maximum Inner Product Search), which can be approximately solved in sub-linear time.</li>
+      <li>The retriever and generator are jointly trained, without direct supervision on the document retrieval output. In this paper, the document encoder is frozen because it’s costly to update the document index whenever the document encoder’s parameters are updated.</li>
+      <li>My thoughts:
+        <ul>
+          <li>In an RAG, is it possible to freeze generator and only train retriever? When the generator is frozen, gradients cannot backprop from the RAG’s output to the retriever. This means the retriever cannot be directly trained using the final output loss (e.g. log-likelihood, cross-entropy on the generated text). Instead, the retriever’s loss must be calculated independently, based on the quality of the retrieved documents. Some possible approaches:
+            <ul>
+              <li>If you have labeled data about which documents should be retrieved, if you compute loss based on the label document and retrieved document. This is a well-solved problem in information retrieval (IR).</li>
+              <li>Use RL where the retriever is treated as a policy that selects documents, and the generator’s output is used to compute a reward signal. A reward is computed for the generator’s output, and the retriever is trained using policy gradient methods to maximize expected rewards.</li>
+            </ul>
+          </li>
+          <li>Is it possible to build an RAG with only an LLM api, but not an actual LLM model? If so, how do you train it? This is exactly the situation described above.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>RAG techniques
+    <ul>
+      <li>Chunking is the process of breaking down large documents or data into smaller chunks before indexing them for retrieval. This improves retrieval granularity.</li>
+      <li>Reranking is the process of reranking initial set of retrieved documents by based on a more sophisticated scoring mechanism.</li>
+      <li>HyDE (Hypothetical Document Embedding) improves retrieval by asking the generator to generate a “hypothetical” document based on the query and using it for retrieval.</li>
+    </ul>
+  </li>
+  <li><strong>From Local to Global: A Graph RAG Approach to Query-Focused Summarization</strong> (GraphRAG) (2024) by Microsoft
+    <ul>
+      <li>My note: If you just need the high-level idea of GraphRAG, it’s probably better to read <a href="https://www.microsoft.com/en-us/research/blog/graphrag-unlocking-llm-discovery-on-narrative-private-data/">Microsoft’s research blog</a> or <a href="https://www.youtube.com/watch?v=knDDGYHnnSI">this talk by the Neo4j’s founder</a>.</li>
+      <li>A standard RAG retrieves via vector similarity. A GraphRAG retrieves via a LLM-generated knowledge graph, which provides substantial improvements.</li>
+      <li>The standard RAG performs poorly on questions that require “connecting the dots”, i.e. traversing separate pieces of information through their shared attributes, or require a holistic understanding of the entire large document.</li>
+      <li>The GraphRAG performs better in such problems because it’s easy to traverse connected entities in a knowledge graph, and the LLM-generated knowledge graph already provides structure (e.g. clustering) that encodes the content.</li>
+      <li>The GraphRAG is also more explainable and deterministic than RAG, because the knowledge graph is human-friendly while vector similarity is not.</li>
+      <li>Basic steps to create and use a LLM-generated knowledge graph
+        <ul>
+          <li>Prompt LLM to identify entities (nodes) and relationships (edges) in the dataset.</li>
+          <li>Construct the knowledge graph using a graph database or library.</li>
+          <li>Create a bottom-up clustering that organizes the data hierarchically into semantic clusters. The clusters are like “summaries” and helps with holistic understanding.</li>
+          <li>To answer a query, prompt LLM to extract entities and relationships from the query, and search the graph to find relevant information.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>]]></content><author><name>Yue Yin</name></author><summary type="html"><![CDATA[The following are notes while reading papers in the 2025 AI Engineer Reading List They are personal notes and are not refined for an external audience really. Just in case it’s helpful for someone else.]]></summary></entry><entry><title type="html">Rust Analyser False Positive</title><link href="https://yyin-dev.github.io/rust/rust-analyser-false-positive/" rel="alternate" type="text/html" title="Rust Analyser False Positive" /><published>2022-12-07T00:00:00-05:00</published><updated>2022-12-07T00:00:00-05:00</updated><id>https://yyin-dev.github.io/rust/rust-analyser-false-positive</id><content type="html" xml:base="https://yyin-dev.github.io/rust/rust-analyser-false-positive/"><![CDATA[<p>When reading TiKV code in VS Code, <code class="language-plaintext highlighter-rouge">cargo build</code> works but rust-analyzer generates false positive error. Error output:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[ERROR rust_analyzer::lsp_utils] failed to run build scripts
 

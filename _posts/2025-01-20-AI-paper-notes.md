@@ -160,3 +160,30 @@ Final solution:
 ```
 
 ![image.png](https://github.com/princeton-nlp/tree-of-thought-llm/raw/master/pics/teaser.png)
+
+## Retrieval Augmented Generation
+
+- **Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks** (RAG) (2020) by Meta
+    - RAG consists of a pre-trained retriever and a pre-trained seq2seq generator. To answer a query, the retriever retrieves top-k most relevant documents from the document index, and pass both the query and retrieved documents to the generator to generate a response.
+    - The retriever follows a bi-encoder architecture: a BERT *document encoder* builds a document index and a BERT *query encoder* produces a query representation. Top-k documents are retrieved by MIPS (Maximum Inner Product Search), which can be approximately solved in sub-linear time.
+    - The retriever and generator are jointly trained, without direct supervision on the document retrieval output. In this paper, the document encoder is frozen because it’s costly to update the document index whenever the document encoder’s parameters are updated.
+    - My thoughts:
+        - In an RAG, is it possible to freeze generator and only train retriever? When the generator is frozen, gradients cannot backprop from the RAG’s output to the retriever. This means the retriever cannot be directly trained using the final output loss (e.g. log-likelihood, cross-entropy on the generated text). Instead, the retriever’s loss must be calculated independently, based on the quality of the retrieved documents. Some possible approaches:
+            - If you have labeled data about which documents should be retrieved, if you compute loss based on the label document and retrieved document. This is a well-solved problem in information retrieval (IR).
+            - Use RL where the retriever is treated as a policy that selects documents, and the generator’s output is used to compute a reward signal. A reward is computed for the generator’s output, and the retriever is trained using policy gradient methods to maximize expected rewards.
+        - Is it possible to build an RAG with only an LLM api, but not an actual LLM model? If so, how do you train it? This is exactly the situation described above.
+- RAG techniques
+    - Chunking is the process of breaking down large documents or data into smaller chunks before indexing them for retrieval. This improves retrieval granularity.
+    - Reranking is the process of reranking initial set of retrieved documents by based on a more sophisticated scoring mechanism.
+    - HyDE (Hypothetical Document Embedding) improves retrieval by asking the generator to generate a "hypothetical" document based on the query and using it for retrieval.
+- **From Local to Global: A Graph RAG Approach to Query-Focused Summarization** (GraphRAG) (2024) by Microsoft
+    - My note: If you just need the high-level idea of GraphRAG, it’s probably better to read [Microsoft’s research blog](https://www.microsoft.com/en-us/research/blog/graphrag-unlocking-llm-discovery-on-narrative-private-data/) or [this talk by the Neo4j’s founder](https://www.youtube.com/watch?v=knDDGYHnnSI).
+    - A standard RAG retrieves via vector similarity. A GraphRAG retrieves via a LLM-generated knowledge graph, which provides substantial improvements.
+    - The standard RAG performs poorly on questions that require “connecting the dots”, i.e. traversing separate pieces of information through their shared attributes, or require a holistic understanding of the entire large document.
+    - The GraphRAG performs better in such problems because it’s easy to traverse connected entities in a knowledge graph, and the LLM-generated knowledge graph already provides structure (e.g. clustering) that encodes the content.
+    - The GraphRAG is also more explainable and deterministic than RAG, because the knowledge graph is human-friendly while vector similarity is not.
+    - Basic steps to create and use a LLM-generated knowledge graph
+        - Prompt LLM to identify entities (nodes) and relationships (edges) in the dataset.
+        - Construct the knowledge graph using a graph database or library.
+        - Create a bottom-up clustering that organizes the data hierarchically into semantic clusters. The clusters are like “summaries” and helps with holistic understanding.
+        - To answer a query, prompt LLM to extract entities and relationships from the query, and search the graph to find relevant information.
