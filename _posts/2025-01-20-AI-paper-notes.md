@@ -88,7 +88,18 @@ The following are notes while reading papers in the [2025 AI Engineer Reading Li
     - On top of DeekSeek-v2’s, adds an auxiliary-loss-free load balancing to DeekSeekMoE, and Multi-Token Prediction (MTP). Cost-effective due to using FP8 mixed precision training and meticulous engineering optimizations in the training framework. Achieved economical efficiency and strong performance.
         - MoE model performance suffer from unbalanced expert load. Auxiliary loss is a common solution but it could impair model performance. DeepSeek-v3 introduces a bias term and dynamically adjust it during training time to encourage load balancing.
         - MTP: Introduced by Meta. Predict multiple tokens instead of a single one at each position.
-
+- **DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning** (DeepSeek-R1) (2025)
+    - DeepSeek-R1-Zero represents a pure RL approach without SFT. Group Relative Policy Optimization (GRPO) is used. During the training process, the model learned to use more test-time compute (by generating more thinking tokens) and developed the reasoning ability!
+        - This shows the power of RL: instead of explicitly teaching the model how to solve a problem, just provide it with the right incentives, and it autonomously develops a problem-solving strategies.
+        - DeepSeek-R1-Zero still suffers from issues like poor readability and language mixing.
+    - To address DeepSeek-R1-Zero’s issues, DeepSeek-R1 uses a SFT → RL → SFT → RL pipeline.
+        - The first SFT phase focuses on reasoning ability and readability. Uses thousands of CoT examples.
+        - The first RL phase focuses on reasoning ability, and introduced a language consistency reward to discourage language mixing.
+        - The second SFT phase focuses on other general abilities like writing, role-playing.
+        - The second RL phase focuses on helpfulness and safety.
+    - Unsuccessful attempts
+        - Process Reward Model (PRM).
+        - Monte Carlo Tree Search (MCTS).
 
 ## Prompting, ICL, Chain-of-Thought
 

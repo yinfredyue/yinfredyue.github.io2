@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://yyin-dev.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://yyin-dev.github.io/" rel="alternate" type="text/html" /><updated>2025-01-22T22:37:33-05:00</updated><id>https://yyin-dev.github.io/feed.xml</id><title type="html">Yue Yin’s website</title><subtitle>Stuffs about programming and learning</subtitle><author><name>Yue Yin</name></author><entry><title type="html">Ai Paper Notes</title><link href="https://yyin-dev.github.io/AI-paper-notes/" rel="alternate" type="text/html" title="Ai Paper Notes" /><published>2025-01-20T00:00:00-05:00</published><updated>2025-01-20T00:00:00-05:00</updated><id>https://yyin-dev.github.io/AI-paper-notes</id><content type="html" xml:base="https://yyin-dev.github.io/AI-paper-notes/"><![CDATA[<p>The following are notes while reading papers in the <a href="https://www.latent.space/p/2025-papers">2025 AI Engineer Reading List</a> They are personal notes and are not refined for an external audience really. Just in case it’s helpful for someone else.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://yyin-dev.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://yyin-dev.github.io/" rel="alternate" type="text/html" /><updated>2025-01-22T23:17:27-05:00</updated><id>https://yyin-dev.github.io/feed.xml</id><title type="html">Yue Yin’s website</title><subtitle>Stuffs about programming and learning</subtitle><author><name>Yue Yin</name></author><entry><title type="html">Ai Paper Notes</title><link href="https://yyin-dev.github.io/AI-paper-notes/" rel="alternate" type="text/html" title="Ai Paper Notes" /><published>2025-01-20T00:00:00-05:00</published><updated>2025-01-20T00:00:00-05:00</updated><id>https://yyin-dev.github.io/AI-paper-notes</id><content type="html" xml:base="https://yyin-dev.github.io/AI-paper-notes/"><![CDATA[<p>The following are notes while reading papers in the <a href="https://www.latent.space/p/2025-papers">2025 AI Engineer Reading List</a> They are personal notes and are not refined for an external audience really. Just in case it’s helpful for someone else.</p>
 
 <h2 id="frontier-models"><strong>Frontier Models</strong></h2>
 
@@ -161,6 +161,30 @@
         <ul>
           <li>MoE model performance suffer from unbalanced expert load. Auxiliary loss is a common solution but it could impair model performance. DeepSeek-v3 introduces a bias term and dynamically adjust it during training time to encourage load balancing.</li>
           <li>MTP: Introduced by Meta. Predict multiple tokens instead of a single one at each position.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning</strong> (DeepSeek-R1) (2025)
+    <ul>
+      <li>DeepSeek-R1-Zero represents a pure RL approach without SFT. Group Relative Policy Optimization (GRPO) is used. During the training process, the model learned to use more test-time compute (by generating more thinking tokens) and developed the reasoning ability!
+        <ul>
+          <li>This shows the power of RL: instead of explicitly teaching the model how to solve a problem, just provide it with the right incentives, and it autonomously develops a problem-solving strategies.</li>
+          <li>DeepSeek-R1-Zero still suffers from issues like poor readability and language mixing.</li>
+        </ul>
+      </li>
+      <li>To address DeepSeek-R1-Zero’s issues, DeepSeek-R1 uses a SFT → RL → SFT → RL pipeline.
+        <ul>
+          <li>The first SFT phase focuses on reasoning ability and readability. Uses thousands of CoT examples.</li>
+          <li>The first RL phase focuses on reasoning ability, and introduced a language consistency reward to discourage language mixing.</li>
+          <li>The second SFT phase focuses on other general abilities like writing, role-playing.</li>
+          <li>The second RL phase focuses on helpfulness and safety.</li>
+        </ul>
+      </li>
+      <li>Unsuccessful attempts
+        <ul>
+          <li>Process Reward Model (PRM).</li>
+          <li>Monte Carlo Tree Search (MCTS).</li>
         </ul>
       </li>
     </ul>
